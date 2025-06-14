@@ -11,7 +11,7 @@ class CalculateShippingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class CalculateShippingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'monthly_shipments' => 'required|integer|min:0',
+            'destination_type' => 'required|in:normal,remote',
+            'weight' => 'required|numeric|min:0.01|max:20',
+            'dimensions.length' => 'required|numeric|min:1',
+            'dimensions.width' => 'required|numeric|min:1',
+            'dimensions.height' => 'required|numeric|min:1',
         ];
     }
 }
